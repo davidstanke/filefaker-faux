@@ -1,0 +1,383 @@
+@import "tailwindcss";
+
+/* Classic '90s FileMaker Pro Aesthetic Stylesheet */
+
+:root {
+	--win-bg: #d4d0c8;
+	--win-gray: #c0c0c0;
+	--win-dark: #808080;
+	--win-darker: #404040;
+	--win-light: #ffffff;
+	--win-title-blue: #000080;
+	--win-title-text: #ffffff;
+	--win-text: #000000;
+	--fm-header-bg: #e6e4df;
+	--fm-accent-gold: #c29d38;
+	--fm-flipper-bg: #dedede;
+	--fm-font: -apple-system, BlinkMacSystemFont, "Segoe UI", "Tahoma", "Geneva", "MS Sans Serif", sans-serif;
+	--fm-mono: "SF Mono", "Consolas", "Courier New", monospace;
+}
+
+body {
+	margin: 0;
+	padding: 0;
+	background-color: #557a95;
+	font-family: var(--fm-font);
+	font-size: 13px;
+	color: var(--win-text);
+	user-select: none;
+	-webkit-font-smoothing: antialiased;
+}
+
+/* 3D Classic Windows / Mac OS Bevels */
+.fm-bevel-outset {
+	background: var(--win-gray);
+	border-top: 2px solid var(--win-light);
+	border-left: 2px solid var(--win-light);
+	border-right: 2px solid var(--win-darker);
+	border-bottom: 2px solid var(--win-darker);
+	box-shadow: inset 1px 1px 0px rgba(255, 255, 255, 0.6), inset -1px -1px 0px rgba(0, 0, 0, 0.2);
+}
+
+.fm-bevel-inset {
+	background: var(--win-light);
+	border-top: 2px solid var(--win-dark);
+	border-left: 2px solid var(--win-dark);
+	border-right: 2px solid var(--win-light);
+	border-bottom: 2px solid var(--win-light);
+	box-shadow: inset 1px 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.fm-panel {
+	border-top: 2px solid var(--win-light);
+	border-left: 2px solid var(--win-light);
+	border-right: 2px solid var(--win-darker);
+	border-bottom: 2px solid var(--win-darker);
+	background: var(--win-bg);
+}
+
+.fm-btn {
+	background: var(--win-gray);
+	border-top: 2px solid var(--win-light);
+	border-left: 2px solid var(--win-light);
+	border-right: 2px solid var(--win-darker);
+	border-bottom: 2px solid var(--win-darker);
+	color: var(--win-text);
+	font-family: var(--fm-font);
+	font-size: 12px;
+	font-weight: 500;
+	padding: 3px 10px;
+	cursor: pointer;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	gap: 5px;
+	text-decoration: none;
+	box-sizing: border-box;
+}
+
+.fm-btn:active, .fm-btn.active {
+	border-top: 2px solid var(--win-darker);
+	border-left: 2px solid var(--win-darker);
+	border-right: 2px solid var(--win-light);
+	border-bottom: 2px solid var(--win-light);
+	background: #b5b0a8;
+	padding: 4px 9px 2px 11px;
+}
+
+.fm-btn:disabled {
+	color: var(--win-dark);
+	text-shadow: 1px 1px var(--win-light);
+	cursor: not-allowed;
+	pointer-events: none;
+}
+
+.fm-input, .fm-select, .fm-textarea {
+	background: #ffffff;
+	border-top: 2px solid var(--win-dark);
+	border-left: 2px solid var(--win-dark);
+	border-right: 2px solid var(--win-light);
+	border-bottom: 2px solid var(--win-light);
+	font-family: var(--fm-font);
+	font-size: 13px;
+	padding: 4px 6px;
+	color: #000;
+	box-sizing: border-box;
+	user-select: text;
+}
+
+.fm-input:focus, .fm-select:focus, .fm-textarea:focus {
+	outline: 1px dotted #000080;
+}
+
+/* Classic FileMaker Rolodex / Book Widget */
+.fm-book-flipper {
+	width: 72px;
+	background: #d8d4cc;
+	border-right: 2px solid var(--win-dark);
+	border-left: 2px solid var(--win-light);
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	padding: 8px 4px;
+	box-shadow: inset 1px 0px 0px #fff;
+}
+
+.fm-book-icon {
+	width: 50px;
+	height: 44px;
+	background: #fbf9f4;
+	border: 1px solid #777;
+	border-radius: 3px;
+	position: relative;
+	box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.25);
+	cursor: pointer;
+	display: flex;
+	overflow: hidden;
+}
+
+.fm-book-spine {
+	width: 8px;
+	background: #395270;
+	border-right: 1px solid #222;
+}
+
+.fm-book-pages {
+	flex: 1;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	position: relative;
+	background: repeating-linear-gradient(
+		to bottom,
+		#fff,
+		#fff 3px,
+		#eee 3px,
+		#eee 4px
+	);
+}
+
+.fm-book-tab {
+	position: absolute;
+	right: 0;
+	top: 6px;
+	width: 6px;
+	height: 12px;
+	background: #c83232;
+	border-radius: 2px 0 0 2px;
+}
+
+/* Tabs */
+.fm-tab {
+	padding: 5px 14px;
+	background: #bbb7ae;
+	border-top: 2px solid var(--win-light);
+	border-left: 2px solid var(--win-light);
+	border-right: 2px solid var(--win-darker);
+	border-bottom: none;
+	border-radius: 4px 4px 0 0;
+	margin-right: 2px;
+	cursor: pointer;
+	font-weight: 500;
+	color: #333;
+}
+
+.fm-tab.active {
+	background: var(--win-bg);
+	border-bottom: 2px solid var(--win-bg);
+	margin-bottom: -2px;
+	font-weight: bold;
+	color: #000;
+	z-index: 2;
+}
+
+/* Zebra striping for list view */
+.fm-table {
+	width: 100%;
+	border-collapse: collapse;
+	background: #fff;
+	user-select: text;
+}
+
+.fm-table th {
+	background: var(--win-gray);
+	border-top: 2px solid var(--win-light);
+	border-left: 2px solid var(--win-light);
+	border-right: 2px solid var(--win-darker);
+	border-bottom: 2px solid var(--win-darker);
+	padding: 5px 8px;
+	text-align: left;
+	font-weight: bold;
+	font-size: 11px;
+	cursor: pointer;
+	white-space: nowrap;
+}
+
+.fm-table td {
+	padding: 5px 8px;
+	border-bottom: 1px solid #e0e0e0;
+	border-right: 1px solid #e8e8e8;
+	font-size: 12px;
+}
+
+.fm-table tr:nth-child(even) td {
+	background-color: #f8f9fa;
+}
+
+.fm-table tr:hover td {
+	background-color: #e6f0ff !important;
+	cursor: pointer;
+}
+
+.fm-table tr.selected td {
+	background-color: #000080 !important;
+	color: #ffffff !important;
+}
+
+/* Badges */
+.fm-badge {
+	display: inline-block;
+	padding: 2px 6px;
+	font-size: 10px;
+	font-weight: bold;
+	border-radius: 2px;
+	text-transform: uppercase;
+	letter-spacing: 0.5px;
+}
+
+.fm-badge-business {
+	background: #2b5797;
+	color: #fff;
+}
+
+.fm-badge-individual {
+	background: #008272;
+	color: #fff;
+}
+
+.fm-badge-active {
+	background: #107c10;
+	color: #fff;
+}
+
+.fm-badge-lead {
+	background: #d83b01;
+	color: #fff;
+}
+
+.fm-badge-inactive {
+	background: #797775;
+	color: #fff;
+}
+
+.fm-badge-archived {
+	background: #505050;
+	color: #fff;
+}
+
+/* Auto-Save Status Indicators */
+.fm-save-status {
+	display: inline-flex;
+	align-items: center;
+	gap: 4px;
+	padding: 2px 8px;
+	font-size: 11px;
+	font-weight: 600;
+	border-radius: 3px;
+	transition: all 0.2s ease;
+}
+
+.fm-save-saved {
+	background: #d4edda;
+	color: #155724;
+	border: 1px solid #c3e6cb;
+}
+
+.fm-save-saving {
+	background: #fff3cd;
+	color: #856404;
+	border: 1px solid #ffeeba;
+	animation: pulse 1s infinite;
+}
+
+.fm-save-error {
+	background: #f8d7da;
+	color: #721c24;
+	border: 1px solid #f5c6cb;
+}
+
+@keyframes pulse {
+	0%, 100% { opacity: 1; }
+	50% { opacity: 0.6; }
+}
+
+/* Mobile & Responsive Utilities */
+.fm-sidebar {
+	width: 260px;
+	background: #dfdbd3;
+	border-right: 2px solid var(--win-dark);
+	display: flex;
+	flex-direction: column;
+	flex-shrink: 0;
+	transition: transform 0.25s ease;
+}
+
+@media (max-width: 768px) {
+	.fm-sidebar {
+		position: fixed;
+		top: 0;
+		bottom: 0;
+		left: 0;
+		z-index: 1050;
+		box-shadow: 4px 0 15px rgba(0, 0, 0, 0.4);
+	}
+}
+
+.fm-sidebar-backdrop {
+	position: fixed;
+	inset: 0;
+	background: rgba(0, 0, 0, 0.4);
+	z-index: 1040;
+}
+
+/* Retro Toast Notifications */
+.fm-toast-container {
+	position: fixed;
+	bottom: 16px;
+	right: 16px;
+	z-index: 3000;
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+	pointer-events: none;
+}
+
+.fm-toast {
+	pointer-events: auto;
+	background: var(--win-gray);
+	border-top: 2px solid var(--win-light);
+	border-left: 2px solid var(--win-light);
+	border-right: 2px solid var(--win-darker);
+	border-bottom: 2px solid var(--win-darker);
+	padding: 8px 14px;
+	font-size: 12px;
+	font-weight: 500;
+	box-shadow: 2px 4px 10px rgba(0, 0, 0, 0.3);
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	animation: slideIn 0.2s ease-out;
+}
+
+@keyframes slideIn {
+	from {
+		transform: translateY(10px);
+		opacity: 0;
+	}
+	to {
+		transform: translateY(0);
+		opacity: 1;
+	}
+}
+
