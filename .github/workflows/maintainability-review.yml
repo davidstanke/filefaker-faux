@@ -35,7 +35,7 @@ jobs:
         uses: astral-sh/setup-uv@v4
         with:
           enable-cache: true
-          cache-dependency-glob: ".github/scripts/review_pr.py"
+          cache-dependency-glob: ".github/workflows/maintainability-review.yml"
 
       - name: Run Antigravity Maintainability Review
         env:

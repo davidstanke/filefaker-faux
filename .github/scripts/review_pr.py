@@ -196,6 +196,8 @@ async def run_maintainability_agent(
     async with Agent(config) as agent:
         response = await agent.chat(prompt)
         raw_output = await response.structured_output()
+        if raw_output is None:
+            raise RuntimeError("Maintainability agent returned no structured output.")
         if isinstance(raw_output, MaintainabilityReview):
             return raw_output
         return MaintainabilityReview.model_validate(raw_output)

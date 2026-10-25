@@ -62,5 +62,3 @@ Integration tests use **Playwright** (`tests/integration/app.spec.ts`) for brows
 ```bash
 npm run test:integration
 ```
-
-<!-- Dummy PR check for Antigravity Maintainability Review -->
