@@ -175,6 +175,7 @@ async def run_maintainability_agent(
             enable_subagents=False,
         ),
         system_instructions=rubric,
+        response_schema=MaintainabilityReview,
     )
 
     truncated_note = (
@@ -194,7 +195,12 @@ async def run_maintainability_agent(
 
     async with Agent(config) as agent:
         response = await agent.chat(prompt)
-        return await response.structured_output(MaintainabilityReview)
+        raw_output = await response.structured_output()
+        if raw_output is None:
+            raise RuntimeError("Maintainability agent returned no structured output.")
+        if isinstance(raw_output, MaintainabilityReview):
+            return raw_output
+        return MaintainabilityReview.model_validate(raw_output)
 
 
 def post_github_review(
