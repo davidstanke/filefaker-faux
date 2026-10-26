@@ -249,7 +249,7 @@
 	<title>FileFaker Faux — Business Contacts Database</title>
 </svelte:head>
 
-<div class="flex flex-col h-screen w-full bg-[#d4d0c8] overflow-hidden">
+<div class="flex flex-col h-screen w-full bg-slate-50 text-slate-900 overflow-hidden font-sans">
 	<!-- Top Sticky App Bar -->
 	<FileMakerHeader
 		{currentView}
@@ -267,20 +267,20 @@
 
 	<!-- Collapsible Quick Filter Drawer / Bar -->
 	{#if isFilterPanelOpen}
-		<div class="bg-[#e6e2d8] border-b-2 border-gray-400 p-3 px-4 shadow-inner flex flex-wrap items-center justify-between gap-3 text-xs select-none">
+		<div class="bg-white border-b border-slate-200 p-3.5 px-5 shadow-xs flex flex-wrap items-center justify-between gap-3 text-xs select-none">
 			<div class="flex flex-wrap items-center gap-3 flex-1">
-				<div class="flex items-center gap-1.5">
-					<label for="filter-type" class="font-bold text-gray-700">Type:</label>
-					<select id="filter-type" bind:value={selectedType} class="fm-select text-xs py-0.5">
+				<div class="flex items-center gap-2">
+					<label for="filter-type" class="font-semibold text-slate-700">Type:</label>
+					<select id="filter-type" bind:value={selectedType} class="fm-select text-xs py-1 rounded-lg">
 						<option value="all">All (Bus & Ind)</option>
 						<option value="business">Businesses Only</option>
 						<option value="individual">Individuals Only</option>
 					</select>
 				</div>
 
-				<div class="flex items-center gap-1.5">
-					<label for="filter-status" class="font-bold text-gray-700">Status:</label>
-					<select id="filter-status" bind:value={selectedStatus} class="fm-select text-xs py-0.5">
+				<div class="flex items-center gap-2">
+					<label for="filter-status" class="font-semibold text-slate-700">Status:</label>
+					<select id="filter-status" bind:value={selectedStatus} class="fm-select text-xs py-1 rounded-lg">
 						<option value="all">All Statuses</option>
 						<option value="active">Active</option>
 						<option value="lead">Lead</option>
@@ -289,26 +289,26 @@
 					</select>
 				</div>
 
-				<div class="flex items-center gap-1.5">
-					<label for="filter-state" class="font-bold text-gray-700">State:</label>
+				<div class="flex items-center gap-2">
+					<label for="filter-state" class="font-semibold text-slate-700">State:</label>
 					<input
 						id="filter-state"
 						type="text"
 						bind:value={selectedState}
 						placeholder="e.g. MA, IL, CA"
-						class="fm-input text-xs w-20 py-0.5 uppercase"
+						class="fm-input text-xs w-24 py-1 uppercase rounded-lg"
 					/>
 				</div>
 			</div>
 
-			<div class="flex items-center gap-2">
-				<span class="text-blue-900 font-bold">
+			<div class="flex items-center gap-2.5">
+				<span class="text-indigo-900 font-semibold">
 					{filteredRecords.length} of {records.length} records matching
 				</span>
 				{#if selectedType !== 'all' || selectedStatus !== 'all' || selectedState || searchQuery}
 					<button
 						type="button"
-						class="fm-btn text-xs py-0.5 px-2"
+						class="fm-btn text-xs py-1 px-2.5 rounded-lg text-slate-600 hover:text-slate-900"
 						onclick={() => {
 							selectedType = 'all';
 							selectedStatus = 'all';
@@ -341,47 +341,53 @@
 		/>
 
 		<!-- Center Main Content -->
-		<main class="flex-1 flex flex-col overflow-hidden min-w-0 bg-[#eae7de]">
+		<main class="flex-1 flex flex-col overflow-hidden min-w-0 bg-slate-50">
 			<!-- Secondary Sub-bar: Modern Record Pagination (visible in Form and List views) -->
 			{#if currentView !== 'home'}
-				<div class="bg-[#dcd8cf] px-3 py-1.5 border-b border-gray-400 flex items-center justify-between gap-2 shadow-xs">
+				<div class="bg-white px-3 sm:px-5 py-2 border-b border-slate-200 flex items-center justify-between gap-2 shadow-2xs">
 					<RecordPagination
 						currentIndex={currentIndex}
 						totalCount={filteredRecords.length}
 						onNavigate={(newIdx) => currentIndex = newIdx}
 					/>
-					<div class="text-[11px] text-gray-600 font-medium hidden sm:block">
-						{currentView === 'form' ? 'Viewing Form Record Detail' : 'Spreadsheet Directory Mode'}
+					<div class="text-xs text-slate-500 font-medium hidden sm:flex items-center gap-2">
+						<span class="w-2 h-2 rounded-full {currentView === 'form' ? 'bg-indigo-500' : 'bg-emerald-500'}"></span>
+						<span>{currentView === 'form' ? 'Viewing Form Record Detail' : 'Spreadsheet Directory Mode'}</span>
 					</div>
 				</div>
 			{/if}
 
 			<!-- VIEW 1: HOMEPAGE -->
 			{#if currentView === 'home'}
-				<div class="flex-1 overflow-y-auto p-3 sm:p-6 space-y-5">
+				<div class="flex-1 overflow-y-auto p-4 sm:p-6 lg:p-8 space-y-6">
 					<!-- Hero Welcome Banner -->
-					<div class="fm-bevel-outset p-4 sm:p-6 bg-[#f8f6f0]">
-						<div class="flex flex-wrap items-center justify-between gap-3 border-b border-gray-400 pb-3 mb-4">
-							<div>
-								<h1 class="text-lg sm:text-2xl font-bold text-[#000080] tracking-wide flex items-center gap-2 m-0">
-									<span>🗂</span> FileFaker Faux Contact Manager
-								</h1>
-								<p class="text-xs text-gray-600 mt-1">
-									FileMaker Pro relational database modernized for responsive web browsing.
-								</p>
+					<div class="bg-white border border-slate-200 rounded-2xl p-6 sm:p-8 shadow-xs">
+						<div class="flex flex-wrap items-center justify-between gap-4 border-b border-slate-100 pb-5 mb-6">
+							<div class="flex items-start gap-3.5">
+								<div class="w-12 h-12 rounded-2xl bg-indigo-600 text-white flex items-center justify-center text-2xl shadow-xs">
+									🗂
+								</div>
+								<div>
+									<h1 class="text-xl sm:text-2xl font-bold text-slate-900 tracking-tight flex items-center gap-2 m-0">
+										FileFaker Faux Contact Manager
+									</h1>
+									<p class="text-xs sm:text-sm text-slate-500 mt-1 m-0">
+										Relational database modernized with a contemporary light interface and responsive workflow.
+									</p>
+								</div>
 							</div>
 
-							<div class="flex items-center gap-2">
+							<div class="flex items-center gap-2.5">
 								<button
 									type="button"
-									class="fm-btn font-bold bg-[#c0dec0] text-xs py-1.5 px-3"
+									class="fm-btn-primary font-semibold text-xs py-2 px-4 rounded-xl shadow-xs hover:shadow-sm transition-all"
 									onclick={() => isNewModalOpen = true}
 								>
 									✚ New Record
 								</button>
 								<button
 									type="button"
-									class="fm-btn text-xs py-1.5 px-3"
+									class="fm-btn text-xs py-2 px-3.5 rounded-xl font-medium"
 									onclick={() => currentView = 'list'}
 								>
 									📑 Open Directory ({records.length})
@@ -389,27 +395,67 @@
 							</div>
 						</div>
 
-						<!-- Database KPI Summary Bar -->
-						<div class="grid grid-cols-2 md:grid-cols-4 gap-3 text-xs">
-							<div class="fm-bevel-inset p-2.5 bg-white">
-								<span class="text-gray-500 block text-[11px]">Total Database Records:</span>
-								<strong class="text-lg text-blue-900">{records.length}</strong>
+						<!-- Homepage Quick Search -->
+						<div class="mb-6">
+							<div class="relative max-w-xl">
+								<input
+									id="home-search"
+									type="text"
+									value={searchQuery}
+									oninput={(e) => searchQuery = e.currentTarget.value}
+									placeholder="Search records by name, phone, account, city, notes..."
+									class="fm-input w-full text-sm py-2.5 pl-10 pr-9 bg-slate-50 border border-slate-200 rounded-xl shadow-2xs focus:bg-white focus:ring-2 focus:ring-indigo-100 focus:border-indigo-500 font-medium transition-all"
+								/>
+								<span class="absolute left-3.5 top-3 text-sm text-slate-400 pointer-events-none">🔍</span>
+								{#if searchQuery}
+									<button
+										type="button"
+										class="absolute right-3 top-2.5 text-slate-400 hover:text-slate-700 text-xs font-bold w-5 h-5 rounded-full flex items-center justify-center hover:bg-slate-200 transition-colors"
+										onclick={() => searchQuery = ''}
+										aria-label="Clear search"
+									>
+										✕
+									</button>
+								{/if}
 							</div>
-							<div class="fm-bevel-inset p-2.5 bg-white">
-								<span class="text-gray-500 block text-[11px]">Active Corporate Accounts:</span>
-								<strong class="text-lg text-green-800">
+
+							{#if searchQuery.trim()}
+								<div class="mt-3 p-3 bg-indigo-50/70 border border-indigo-100 rounded-xl flex items-center justify-between flex-wrap gap-2 text-xs">
+									<span class="font-semibold text-indigo-950 flex items-center gap-2">
+										<span>🔎</span> Matching Search Results ({filteredRecords.length} found)
+									</span>
+									<button
+										type="button"
+										class="fm-btn-primary text-xs py-1.5 px-3 rounded-lg"
+										onclick={() => currentView = 'list'}
+									>
+										View Results in List View →
+									</button>
+								</div>
+							{/if}
+						</div>
+
+						<!-- Database KPI Summary Cards -->
+						<div class="grid grid-cols-2 md:grid-cols-4 gap-3.5">
+							<div class="p-4 rounded-xl bg-slate-50/70 border border-slate-200/80">
+								<span class="text-slate-500 block text-xs font-medium">Total Database Records</span>
+								<strong class="text-2xl font-bold text-indigo-700 mt-1 block">{records.length}</strong>
+							</div>
+							<div class="p-4 rounded-xl bg-slate-50/70 border border-slate-200/80">
+								<span class="text-slate-500 block text-xs font-medium">Active Accounts</span>
+								<strong class="text-2xl font-bold text-emerald-700 mt-1 block">
 									{records.filter(r => r.recordType === 'business' && r.status === 'active').length}
 								</strong>
 							</div>
-							<div class="fm-bevel-inset p-2.5 bg-white">
-								<span class="text-gray-500 block text-[11px]">Individual Clients:</span>
-								<strong class="text-lg text-teal-800">
+							<div class="p-4 rounded-xl bg-slate-50/70 border border-slate-200/80">
+								<span class="text-slate-500 block text-xs font-medium">Individual Clients</span>
+								<strong class="text-2xl font-bold text-purple-700 mt-1 block">
 									{records.filter(r => r.recordType === 'individual').length}
 								</strong>
 							</div>
-							<div class="fm-bevel-inset p-2.5 bg-white">
-								<span class="text-gray-500 block text-[11px]">Cold Leads / Inactive:</span>
-								<strong class="text-lg text-orange-800">
+							<div class="p-4 rounded-xl bg-slate-50/70 border border-slate-200/80">
+								<span class="text-slate-500 block text-xs font-medium">Cold Leads / Inactive</span>
+								<strong class="text-2xl font-bold text-amber-700 mt-1 block">
 									{records.filter(r => r.status === 'lead' || r.status === 'inactive').length}
 								</strong>
 							</div>
@@ -428,16 +474,19 @@
 				{#if currentRecord}
 					<RecordFormView
 						record={currentRecord}
+						currentIndex={currentIndex}
+						totalCount={filteredRecords.length}
+						onNavigate={(newIdx) => currentIndex = newIdx}
 						onUpdate={handleUpdateRecord}
 						onDelete={handleDeleteRecord}
 						onAddNote={handleAddNote}
 						onSaveStatusChange={(s) => saveStatus = s}
 					/>
 				{:else}
-					<div class="flex-1 flex flex-col items-center justify-center p-8 text-gray-600">
+					<div class="flex-1 flex flex-col items-center justify-center p-8 text-slate-500">
 						<div class="text-4xl mb-2">📄</div>
-						<div class="font-bold text-sm">No record selected or database is empty.</div>
-						<button type="button" class="fm-btn mt-3 text-xs" onclick={() => currentView = 'home'}>
+						<div class="font-bold text-sm text-slate-700">No record selected or database is empty.</div>
+						<button type="button" class="fm-btn mt-3 text-xs rounded-xl" onclick={() => currentView = 'home'}>
 							Return to Homepage
 						</button>
 					</div>

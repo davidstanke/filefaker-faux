@@ -94,7 +94,7 @@
 	>
 		<!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
 		<div
-			class="fm-modal-window fm-bevel-outset p-0"
+			class="fm-modal-window w-full max-w-lg mx-4 bg-white"
 			onclick={(e) => e.stopPropagation()}
 			onkeydown={(e) => e.stopPropagation()}
 			role="dialog"
@@ -103,30 +103,45 @@
 			tabindex="-1"
 		>
 			<!-- Modal Title Bar -->
-			<div class="fm-modal-titlebar">
-				<span id="modal-title" class="font-bold">New Contact Record</span>
-				<button class="fm-title-btn" onclick={onClose} aria-label="Close dialog">✕</button>
+			<div class="px-5 py-4 border-b border-slate-100 flex items-center justify-between">
+				<div class="flex items-center gap-2.5">
+					<div class="w-8 h-8 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center font-bold text-sm">
+						✚
+					</div>
+					<div>
+						<h3 id="modal-title" class="font-bold text-slate-900 text-sm m-0">New Contact Record</h3>
+						<p class="text-[11px] text-slate-400 m-0">Create a new relational entry in the database</p>
+					</div>
+				</div>
+				<button
+					type="button"
+					class="text-slate-400 hover:text-slate-700 hover:bg-slate-100 p-1.5 rounded-lg transition-colors text-xs"
+					onclick={onClose}
+					aria-label="Close dialog"
+				>
+					✕
+				</button>
 			</div>
 
-			<form onsubmit={handleSubmit} class="p-4 bg-[#d4d0c8] space-y-3">
+			<form onsubmit={handleSubmit} class="p-5 space-y-4 max-h-[85vh] overflow-y-auto">
 				{#if errorMsg}
-					<div class="p-2 bg-red-100 border border-red-400 text-red-800 text-xs font-bold">
+					<div class="p-3 bg-rose-50 border border-rose-200 text-rose-700 rounded-xl text-xs font-semibold">
 						{errorMsg}
 					</div>
 				{/if}
 
 				<div class="grid grid-cols-2 gap-3">
 					<div>
-						<label for="new-type" class="block text-xs font-bold text-gray-700 mb-0.5">Record Type</label>
-						<select id="new-type" bind:value={recordType} class="fm-select w-full">
+						<label for="new-type" class="block text-xs font-semibold text-slate-700 mb-1">Record Type</label>
+						<select id="new-type" bind:value={recordType} class="fm-select w-full rounded-xl">
 							<option value="business">Business Organization</option>
 							<option value="individual">Individual Client</option>
 						</select>
 					</div>
 
 					<div>
-						<label for="new-status" class="block text-xs font-bold text-gray-700 mb-0.5">Initial Status</label>
-						<select id="new-status" bind:value={status} class="fm-select w-full">
+						<label for="new-status" class="block text-xs font-semibold text-slate-700 mb-1">Initial Status</label>
+						<select id="new-status" bind:value={status} class="fm-select w-full rounded-xl">
 							<option value="active">Active</option>
 							<option value="lead">Lead</option>
 							<option value="inactive">Inactive</option>
@@ -135,67 +150,67 @@
 				</div>
 
 				<div>
-					<label for="new-name" class="block text-xs font-bold text-gray-700 mb-0.5">
+					<label for="new-name" class="block text-xs font-semibold text-slate-700 mb-1">
 						{recordType === 'business' ? 'Company Name' : 'Full Name'} *
 					</label>
 					<input
 						id="new-name"
 						type="text"
 						bind:value={name}
-						placeholder={recordType === 'business' ? 'e.g. Apex Industrial Solutions' : 'e.g. Arthur Pendleton'}
-						class="fm-input w-full font-bold"
+						placeholder={recordType === 'business' ? 'e.g. Acme Automation Works Inc' : 'e.g. Arthur Pendleton'}
+						class="fm-input w-full font-bold rounded-xl"
 						required
 					/>
 				</div>
 
 				<div class="grid grid-cols-2 gap-3">
 					<div>
-						<label for="new-cat" class="block text-xs font-bold text-gray-700 mb-0.5">Category</label>
-						<input id="new-cat" type="text" bind:value={category} class="fm-input w-full text-xs" />
+						<label for="new-cat" class="block text-xs font-semibold text-slate-700 mb-1">Category</label>
+						<input id="new-cat" type="text" bind:value={category} class="fm-input w-full text-xs rounded-xl" />
 					</div>
 					<div>
-						<label for="new-phone" class="block text-xs font-bold text-gray-700 mb-0.5">Phone Number</label>
-						<input id="new-phone" type="text" bind:value={phone} placeholder="(555) 123-4567" class="fm-input w-full text-xs" />
+						<label for="new-phone" class="block text-xs font-semibold text-slate-700 mb-1">Phone Number</label>
+						<input id="new-phone" type="text" bind:value={phone} placeholder="(617) 555-9080" class="fm-input w-full text-xs font-mono rounded-xl" />
 					</div>
 				</div>
 
 				<div>
-					<label for="new-email" class="block text-xs font-bold text-gray-700 mb-0.5">Email Address</label>
-					<input id="new-email" type="email" bind:value={email} placeholder="contact@domain.com" class="fm-input w-full text-xs" />
+					<label for="new-email" class="block text-xs font-semibold text-slate-700 mb-1">Email Address</label>
+					<input id="new-email" type="email" bind:value={email} placeholder="contact@domain.com" class="fm-input w-full text-xs font-mono rounded-xl" />
 				</div>
 
 				<!-- Address Block -->
-				<div class="fm-bevel-inset p-2 bg-white">
-					<span class="block text-[11px] font-bold text-gray-700 mb-1">Primary Address</span>
+				<div class="p-3.5 bg-slate-50 border border-slate-200 rounded-xl space-y-2.5">
+					<span class="block text-[11px] font-bold text-slate-700 uppercase tracking-wider">Primary Location Address</span>
 					<div class="grid grid-cols-4 gap-2">
 						<div class="col-span-4">
-							<input type="text" bind:value={street} placeholder="Street Address" class="fm-input w-full text-xs" />
+							<input type="text" bind:value={street} placeholder="Street Address" class="fm-input w-full text-xs rounded-lg" />
 						</div>
 						<div class="col-span-2">
-							<input type="text" bind:value={city} placeholder="City" class="fm-input w-full text-xs" />
+							<input type="text" bind:value={city} placeholder="City" class="fm-input w-full text-xs rounded-lg" />
 						</div>
 						<div>
-							<input type="text" bind:value={stateField} placeholder="State" class="fm-input w-full text-xs" />
+							<input type="text" bind:value={stateField} placeholder="State" class="fm-input w-full text-xs rounded-lg" />
 						</div>
 						<div>
-							<input type="text" bind:value={zip} placeholder="ZIP" class="fm-input w-full text-xs" />
+							<input type="text" bind:value={zip} placeholder="ZIP" class="fm-input w-full text-xs font-mono rounded-lg" />
 						</div>
 					</div>
 				</div>
 
 				<div>
-					<label for="new-note" class="block text-xs font-bold text-gray-700 mb-0.5">Initial History Note</label>
-					<input id="new-note" type="text" bind:value={initialNote} class="fm-input w-full text-xs" />
+					<label for="new-note" class="block text-xs font-semibold text-slate-700 mb-1">Initial History Note</label>
+					<input id="new-note" type="text" bind:value={initialNote} class="fm-input w-full text-xs rounded-xl" />
 				</div>
 
 				<!-- Dialog Buttons -->
-				<div class="flex items-center justify-end gap-2 pt-2 border-t border-gray-400">
-					<button type="button" class="fm-btn text-xs" onclick={onClose}>
+				<div class="flex items-center justify-end gap-2.5 pt-3 border-t border-slate-100">
+					<button type="button" class="fm-btn text-xs rounded-xl" onclick={onClose}>
 						Cancel
 					</button>
 					<button
 						type="submit"
-						class="fm-btn font-bold bg-[#c0dec0] text-xs"
+						class="fm-btn-primary font-semibold text-xs py-2 px-4 rounded-xl shadow-xs hover:shadow-sm"
 						disabled={isSubmitting}
 					>
 						{isSubmitting ? 'Creating...' : 'Create Record'}
@@ -205,50 +220,3 @@
 		</div>
 	</div>
 {/if}
-
-<style>
-	.fm-modal-backdrop {
-		position: fixed;
-		inset: 0;
-		background: rgba(0, 0, 0, 0.4);
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		z-index: 2000;
-	}
-
-	.fm-modal-window {
-		width: 520px;
-		max-width: 95vw;
-		background: var(--win-bg);
-		box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.5);
-	}
-
-	.fm-modal-titlebar {
-		background: var(--win-title-blue);
-		color: #ffffff;
-		padding: 3px 6px;
-		display: flex;
-		align-items: center;
-		justify-content: space-between;
-		font-size: 12px;
-	}
-
-	.fm-title-btn {
-		width: 17px;
-		height: 15px;
-		background: var(--win-gray);
-		border-top: 1px solid var(--win-light);
-		border-left: 1px solid var(--win-light);
-		border-right: 1px solid var(--win-darker);
-		border-bottom: 1px solid var(--win-darker);
-		font-size: 10px;
-		line-height: 1;
-		cursor: pointer;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		padding: 0;
-		color: #000;
-	}
-</style>

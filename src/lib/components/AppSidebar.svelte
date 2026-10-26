@@ -45,17 +45,22 @@
 {/if}
 
 <aside
-	class="fm-sidebar {isOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'} flex flex-col h-full overflow-y-auto"
+	class="fm-sidebar {isOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'} flex flex-col h-full bg-white border-r border-slate-200 overflow-y-auto select-none"
 >
 	<!-- Sidebar Titlebar -->
-	<div class="bg-[#000080] text-white p-2.5 flex items-center justify-between border-b border-black select-none">
-		<div class="flex items-center gap-2">
-			<span class="text-base">🗂</span>
-			<span class="font-bold text-xs tracking-wider">FILEFAKER FAUX</span>
+	<div class="p-4 flex items-center justify-between border-b border-slate-100">
+		<div class="flex items-center gap-2.5">
+			<div class="w-8 h-8 rounded-xl bg-indigo-600 text-white flex items-center justify-center font-bold text-sm shadow-xs">
+				🗂
+			</div>
+			<div>
+				<div class="font-bold text-xs tracking-tight text-slate-900">FILEFAKER FAUX</div>
+				<div class="text-[10px] text-slate-500">Contact Management</div>
+			</div>
 		</div>
 		<button
 			type="button"
-			class="md:hidden text-white hover:text-gray-200 text-xs px-1.5 py-0.5 border border-gray-400"
+			class="md:hidden text-slate-400 hover:text-slate-700 hover:bg-slate-100 p-1.5 rounded-lg transition-colors text-xs"
 			onclick={onCloseMobile}
 			aria-label="Close menu"
 		>
@@ -64,91 +69,95 @@
 	</div>
 
 	<!-- Navigation Section -->
-	<div class="p-3 border-b border-gray-400 space-y-1">
-		<span class="text-[10px] font-bold uppercase tracking-wider text-gray-600 block mb-1">
+	<div class="p-3 border-b border-slate-100 space-y-1">
+		<span class="text-[10px] font-bold uppercase tracking-wider text-slate-400 px-2 block mb-1.5">
 			Views & Layouts
 		</span>
 		<button
 			type="button"
-			class="w-full text-left px-2.5 py-1.5 text-xs font-semibold rounded-sm flex items-center gap-2 {currentView === 'home' ? 'bg-[#000080] text-white' : 'hover:bg-gray-200 text-gray-800'}"
+			class="w-full text-left px-3 py-2 text-xs font-medium rounded-xl flex items-center gap-2.5 transition-all {currentView === 'home' ? 'bg-indigo-50 text-indigo-700 font-semibold border border-indigo-100/80 shadow-xs' : 'text-slate-700 hover:bg-slate-50 hover:text-slate-900'}"
 			onclick={() => { onSelectView('home'); onCloseMobile(); }}
 		>
-			<span>🏠</span> Homepage & Search
+			<span class="text-sm">🏠</span> Homepage & Search
 		</button>
 		<button
 			type="button"
-			class="w-full text-left px-2.5 py-1.5 text-xs font-semibold rounded-sm flex items-center gap-2 {currentView === 'form' ? 'bg-[#000080] text-white' : 'hover:bg-gray-200 text-gray-800'}"
+			class="w-full text-left px-3 py-2 text-xs font-medium rounded-xl flex items-center gap-2.5 transition-all {currentView === 'form' ? 'bg-indigo-50 text-indigo-700 font-semibold border border-indigo-100/80 shadow-xs' : 'text-slate-700 hover:bg-slate-50 hover:text-slate-900'}"
 			onclick={() => { onSelectView('form'); onCloseMobile(); }}
 		>
-			<span>📄</span> Form Detail View
+			<span class="text-sm">📄</span> Form Detail View
 		</button>
 		<button
 			type="button"
-			class="w-full text-left px-2.5 py-1.5 text-xs font-semibold rounded-sm flex items-center gap-2 {currentView === 'list' ? 'bg-[#000080] text-white' : 'hover:bg-gray-200 text-gray-800'}"
+			class="w-full text-left px-3 py-2 text-xs font-medium rounded-xl flex items-center gap-2.5 transition-all {currentView === 'list' ? 'bg-indigo-50 text-indigo-700 font-semibold border border-indigo-100/80 shadow-xs' : 'text-slate-700 hover:bg-slate-50 hover:text-slate-900'}"
 			onclick={() => { onSelectView('list'); onCloseMobile(); }}
 		>
-			<span>📑</span> Spreadsheet List View
+			<span class="text-sm">📑</span> Spreadsheet List View
 		</button>
 	</div>
 
 	<!-- Quick Filter Shortcuts -->
-	<div class="p-3 border-b border-gray-400 space-y-1 text-xs">
-		<span class="text-[10px] font-bold uppercase tracking-wider text-gray-600 block mb-1">
+	<div class="p-3 border-b border-slate-100 space-y-1 text-xs">
+		<span class="text-[10px] font-bold uppercase tracking-wider text-slate-400 px-2 block mb-1.5">
 			Quick Directory Filters
 		</span>
 		<button
 			type="button"
-			class="w-full text-left px-2 py-1 hover:bg-gray-200 rounded-sm flex items-center justify-between text-gray-700"
+			class="w-full text-left px-3 py-1.5 hover:bg-slate-50 rounded-xl flex items-center justify-between text-slate-700 transition-colors"
 			onclick={() => { onFilterType('all'); onFilterStatus('all'); onSelectView('list'); onCloseMobile(); }}
 		>
-			<span>📁 All Records</span>
-			<span class="font-mono text-[11px] font-bold">{records.length}</span>
+			<span class="flex items-center gap-2 font-medium"><span>📁</span> All Records</span>
+			<span class="px-2 py-0.5 rounded-full text-[11px] font-semibold bg-slate-100 text-slate-600 font-mono">{records.length}</span>
 		</button>
 		<button
 			type="button"
-			class="w-full text-left px-2 py-1 hover:bg-gray-200 rounded-sm flex items-center justify-between text-gray-700"
+			class="w-full text-left px-3 py-1.5 hover:bg-slate-50 rounded-xl flex items-center justify-between text-slate-700 transition-colors"
 			onclick={() => { onFilterType('business'); onSelectView('list'); onCloseMobile(); }}
 		>
-			<span>🏢 Businesses</span>
-			<span class="font-mono text-[11px] text-blue-900 font-bold">{businessCount}</span>
+			<span class="flex items-center gap-2 font-medium"><span>🏢</span> Businesses</span>
+			<span class="px-2 py-0.5 rounded-full text-[11px] font-semibold bg-blue-50 text-blue-700 border border-blue-200/60 font-mono">{businessCount}</span>
 		</button>
 		<button
 			type="button"
-			class="w-full text-left px-2 py-1 hover:bg-gray-200 rounded-sm flex items-center justify-between text-gray-700"
+			class="w-full text-left px-3 py-1.5 hover:bg-slate-50 rounded-xl flex items-center justify-between text-slate-700 transition-colors"
 			onclick={() => { onFilterType('individual'); onSelectView('list'); onCloseMobile(); }}
 		>
-			<span>👤 Individuals</span>
-			<span class="font-mono text-[11px] text-teal-800 font-bold">{individualCount}</span>
+			<span class="flex items-center gap-2 font-medium"><span>👤</span> Individuals</span>
+			<span class="px-2 py-0.5 rounded-full text-[11px] font-semibold bg-purple-50 text-purple-700 border border-purple-200/60 font-mono">{individualCount}</span>
 		</button>
 		<button
 			type="button"
-			class="w-full text-left px-2 py-1 hover:bg-gray-200 rounded-sm flex items-center justify-between text-gray-700"
+			class="w-full text-left px-3 py-1.5 hover:bg-slate-50 rounded-xl flex items-center justify-between text-slate-700 transition-colors"
 			onclick={() => { onFilterStatus('active'); onSelectView('list'); onCloseMobile(); }}
 		>
-			<span>🟢 Active Status</span>
-			<span class="font-mono text-[11px] text-green-800 font-bold">{activeCount}</span>
+			<span class="flex items-center gap-2 font-medium"><span>🟢</span> Active Status</span>
+			<span class="px-2 py-0.5 rounded-full text-[11px] font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200/60 font-mono">{activeCount}</span>
 		</button>
 	</div>
 
 	<!-- Recently Accessed Jump List -->
-	<div class="p-3 border-b border-gray-400 flex-1 overflow-y-auto">
-		<span class="text-[10px] font-bold uppercase tracking-wider text-gray-600 block mb-1.5">
+	<div class="p-3 border-b border-slate-100 flex-1 overflow-y-auto">
+		<span class="text-[10px] font-bold uppercase tracking-wider text-slate-400 px-2 block mb-2">
 			Recent Records
 		</span>
 		{#if recentRecords.length === 0}
-			<p class="text-[11px] text-gray-500 italic">No recent history.</p>
+			<p class="text-[11px] text-slate-400 italic px-2">No recent history.</p>
 		{:else}
 			<div class="space-y-1">
 				{#each recentRecords.slice(0, 6) as rec (rec.id)}
 					<button
 						type="button"
-						class="w-full text-left p-1.5 hover:bg-white rounded border border-transparent hover:border-gray-300 transition-colors block text-xs"
+						class="w-full text-left p-2 hover:bg-slate-50 rounded-xl border border-transparent hover:border-slate-200 transition-all block text-xs group"
 						onclick={() => { onSelectRecord(rec); onCloseMobile(); }}
 					>
-						<div class="font-bold text-gray-900 truncate">{rec.name}</div>
-						<div class="flex items-center justify-between text-[10px] text-gray-500 font-mono mt-0.5">
+						<div class="font-semibold text-slate-800 group-hover:text-indigo-600 transition-colors truncate">
+							{rec.name}
+						</div>
+						<div class="flex items-center justify-between text-[10px] text-slate-400 font-mono mt-0.5">
 							<span>{rec.accountNumber}</span>
-							<span class="uppercase">{rec.recordType === 'business' ? 'BUS' : 'IND'}</span>
+							<span class="uppercase font-semibold {rec.recordType === 'business' ? 'text-blue-600' : 'text-purple-600'}">
+								{rec.recordType === 'business' ? 'BUS' : 'IND'}
+							</span>
 						</div>
 					</button>
 				{/each}
@@ -157,17 +166,17 @@
 	</div>
 
 	<!-- Action Footer -->
-	<div class="p-3 bg-[#d4d0c8] space-y-2 select-none">
+	<div class="p-3 bg-slate-50/70 border-t border-slate-100 space-y-2 select-none">
 		<button
 			type="button"
-			class="fm-btn w-full font-bold bg-[#c0dec0] text-xs py-1.5 shadow-sm"
+			class="fm-btn-primary w-full font-semibold text-xs py-2 rounded-xl shadow-xs hover:shadow-sm transition-all"
 			onclick={() => { onNewRecord(); onCloseMobile(); }}
 		>
 			✚ New Contact Record
 		</button>
 		<button
 			type="button"
-			class="fm-btn w-full text-[11px] py-1 text-gray-700"
+			class="fm-btn w-full text-[11px] py-1.5 text-slate-600 hover:text-slate-900 rounded-xl"
 			onclick={() => { onResetDb(); onCloseMobile(); }}
 		>
 			🔄 Re-seed Database
