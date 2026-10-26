@@ -48,60 +48,60 @@
 	}
 </script>
 
-<aside class="fm-flipper-container select-none">
+<aside class="fm-flipper-container select-none flex flex-col items-center p-3 bg-white border-r border-slate-200 w-20 shrink-0">
 	<!-- Mode Badge -->
-	<div class="fm-mode-pill">
+	<div class="fm-mode-pill px-2 py-0.5 rounded-full text-[10px] font-semibold uppercase tracking-wider bg-indigo-50 text-indigo-700 border border-indigo-100 mb-3">
 		{mode}
 	</div>
 
-	<!-- Classic FileMaker Book Flip Widget -->
-	<div class="fm-book-wrapper" title="Click top page for Previous, bottom page for Next">
+	<!-- Contemporary Book Flip Navigator -->
+	<div class="fm-book-wrapper w-14 h-14 bg-white border border-slate-200 rounded-xl shadow-xs relative flex flex-col overflow-hidden" title="Click top page for Previous, bottom page for Next">
 		<button
 			type="button"
-			class="fm-book-half fm-book-top"
+			class="fm-book-half fm-book-top flex-1 flex items-center justify-center text-slate-500 hover:text-indigo-600 hover:bg-slate-50 transition-colors cursor-pointer border-none bg-transparent"
 			onclick={prev}
 			disabled={currentIndex <= 0}
 			title="Previous Record"
 			aria-label="Previous Record"
 		>
-			<span class="fm-arrow-up">▲</span>
+			<span class="fm-arrow-up text-[10px] font-bold">▲</span>
 		</button>
 
-		<div class="fm-book-center-divider"></div>
+		<div class="fm-book-center-divider h-[1px] bg-slate-200 w-full"></div>
 
 		<button
 			type="button"
-			class="fm-book-half fm-book-bottom"
+			class="fm-book-half fm-book-bottom flex-1 flex items-center justify-center text-slate-500 hover:text-indigo-600 hover:bg-slate-50 transition-colors cursor-pointer border-none bg-transparent"
 			onclick={next}
 			disabled={currentIndex >= totalCount - 1}
 			title="Next Record"
 			aria-label="Next Record"
 		>
-			<span class="fm-arrow-down">▼</span>
+			<span class="fm-arrow-down text-[10px] font-bold">▼</span>
 		</button>
 
 		<!-- Visual Book Spine and Tab -->
-		<div class="fm-book-spine"></div>
-		<div class="fm-book-tab"></div>
+		<div class="fm-book-spine absolute left-0 top-0 bottom-0 w-1 bg-indigo-500 pointer-events-none"></div>
+		<div class="fm-book-tab absolute right-0 top-2.5 w-1.5 h-3 bg-amber-500 rounded-l-sm pointer-events-none"></div>
 	</div>
 
 	<!-- Record Number Box -->
-	<div class="flex flex-col items-center mt-2 w-full">
-		<span class="text-[10px] text-gray-600 font-semibold uppercase tracking-wider">Record:</span>
+	<div class="flex flex-col items-center mt-3 w-full">
+		<span class="text-[10px] text-slate-400 font-semibold uppercase tracking-wider">Record</span>
 		<input
 			type="text"
 			bind:value={inputVal}
 			onblur={handleInputCommit}
 			onkeydown={handleKeydown}
-			class="fm-input text-center text-xs font-bold w-12 py-0.5 mt-0.5"
+			class="fm-input text-center text-xs font-bold w-12 py-1 mt-1 rounded-lg border-slate-200 bg-slate-50 text-slate-900"
 			title="Type a record number and press Enter"
 		/>
-		<div class="text-[11px] text-gray-700 font-medium mt-1">
-			of <span class="font-bold">{totalCount}</span>
+		<div class="text-[11px] text-slate-500 font-medium mt-1">
+			of <span class="font-bold text-slate-800">{totalCount}</span>
 		</div>
 	</div>
 
-	<!-- Classic FileMaker Slider Scrubber -->
+	<!-- Slider Scrubber -->
 	{#if totalCount > 1}
 		<div class="mt-3 w-14 flex flex-col items-center">
 			<input
@@ -110,136 +110,24 @@
 				max={Math.max(0, totalCount - 1)}
 				value={currentIndex}
 				oninput={(e) => onNavigate?.(parseInt(e.currentTarget.value, 10))}
-				class="fm-slider w-12"
+				class="fm-slider w-12 accent-indigo-600"
 				title="Slide to browse records"
 			/>
 		</div>
 	{/if}
 
 	<!-- Database Status Text -->
-	<div class="mt-auto pb-2 text-[10px] text-gray-500 text-center font-mono">
-		<div>Sorted</div>
-		<div class="mt-1">Indexed</div>
+	<div class="mt-auto pb-1 text-[10px] text-slate-400 text-center font-medium">
+		<div class="flex items-center justify-center gap-1">
+			<span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+			<span>Sorted</span>
+		</div>
 	</div>
 </aside>
 
 <style>
-	.fm-flipper-container {
-		width: 76px;
-		background: #d4d0c8;
-		border-right: 2px solid var(--win-darker);
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		padding: 8px 4px;
-		box-sizing: border-box;
-		flex-shrink: 0;
-	}
-
-	.fm-mode-pill {
-		font-size: 10px;
-		font-weight: bold;
-		text-transform: uppercase;
-		background: #b4af9f;
-		border-top: 1px solid #ffffff;
-		border-left: 1px solid #ffffff;
-		border-right: 1px solid #706b60;
-		border-bottom: 1px solid #706b60;
-		padding: 2px 6px;
-		border-radius: 2px;
-		margin-bottom: 8px;
-		letter-spacing: 0.5px;
-	}
-
-	.fm-book-wrapper {
-		width: 52px;
-		height: 52px;
-		background: #fbf9f4;
-		border: 1px solid #404040;
-		box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.35);
-		position: relative;
-		display: flex;
-		flex-direction: column;
-		overflow: hidden;
-	}
-
-	.fm-book-spine {
-		position: absolute;
-		left: 0;
-		top: 0;
-		bottom: 0;
-		width: 6px;
-		background: #395270;
-		border-right: 1px solid #203040;
-		pointer-events: none;
-	}
-
-	.fm-book-tab {
-		position: absolute;
-		right: 0;
-		top: 10px;
-		width: 5px;
-		height: 12px;
-		background: #d2322d;
-		border-radius: 2px 0 0 2px;
-		pointer-events: none;
-	}
-
-	.fm-book-half {
-		flex: 1;
-		background: transparent;
-		border: none;
-		cursor: pointer;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		padding-left: 6px;
-		color: #2b4560;
-		font-size: 11px;
-	}
-
-	.fm-book-half:hover:not(:disabled) {
-		background: #ece8dc;
-	}
-
-	.fm-book-half:active:not(:disabled) {
-		background: #d4cfbe;
-	}
-
-	.fm-book-half:disabled {
-		opacity: 0.3;
-		cursor: not-allowed;
-	}
-
-	.fm-book-center-divider {
-		height: 1px;
-		background: #c8c4b8;
-		margin-left: 6px;
-	}
-
-	.fm-arrow-up, .fm-arrow-down {
-		font-size: 9px;
-	}
-
 	.fm-slider {
-		-webkit-appearance: none;
-		appearance: none;
-		height: 5px;
-		background: #a09d94;
-		outline: none;
-		border: 1px solid #555;
-	}
-
-	.fm-slider::-webkit-slider-thumb {
-		-webkit-appearance: none;
-		appearance: none;
-		width: 10px;
-		height: 14px;
-		background: #d4d0c8;
-		border-top: 1px solid #fff;
-		border-left: 1px solid #fff;
-		border-right: 1px solid #404040;
-		border-bottom: 1px solid #404040;
 		cursor: pointer;
+		height: 4px;
 	}
 </style>

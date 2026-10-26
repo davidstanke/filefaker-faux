@@ -28,32 +28,37 @@
 	}
 </script>
 
-<div class="fm-recent-shelf fm-bevel-outset p-4">
-	<div class="flex items-center justify-between border-b border-gray-400 pb-2 mb-3">
-		<div class="flex items-center gap-2">
-			<span class="text-base">🕒</span>
-			<h2 class="text-sm font-bold uppercase tracking-wider text-gray-900 m-0">
-				Recently-Accessed Records
-			</h2>
+<div class="fm-recent-shelf bg-white border border-slate-200 rounded-2xl p-4 sm:p-5 shadow-xs">
+	<div class="flex items-center justify-between border-b border-slate-100 pb-3 mb-4">
+		<div class="flex items-center gap-2.5">
+			<div class="w-7 h-7 rounded-lg bg-indigo-50 text-indigo-600 flex items-center justify-center text-sm font-bold">
+				🕒
+			</div>
+			<div>
+				<h2 class="text-sm font-bold tracking-tight text-slate-900 m-0">
+					Recently-Accessed Records
+				</h2>
+				<p class="text-[11px] text-slate-500 m-0">Jump directly back into your recent workspace records</p>
+			</div>
 		</div>
-		<span class="text-xs text-gray-600 font-mono">
+		<span class="px-2.5 py-1 rounded-full text-xs font-medium bg-slate-100 text-slate-600 font-mono">
 			{recentRecords.length} active sessions
 		</span>
 	</div>
 
 	{#if recentRecords.length === 0}
-		<div class="text-center py-6 text-gray-500 italic text-xs">
+		<div class="text-center py-8 text-slate-400 italic text-xs">
 			No records have been accessed yet. Select a record to begin browsing.
 		</div>
 	{:else}
-		<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3">
+		<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
 			{#each recentRecords as rec (rec.id)}
 				<button
 					type="button"
-					class="fm-recent-card text-left transition-transform hover:-translate-y-0.5"
+					class="fm-recent-card text-left bg-white border border-slate-200/90 hover:border-indigo-300 rounded-xl p-3.5 shadow-xs hover:shadow-md hover:-translate-y-0.5 transition-all duration-150 cursor-pointer flex flex-col group"
 					onclick={() => onSelectRecord(rec)}
 				>
-					<div class="flex items-center justify-between mb-1.5">
+					<div class="flex items-center justify-between mb-2">
 						<span class="fm-badge {rec.recordType === 'business' ? 'fm-badge-business' : 'fm-badge-individual'}">
 							{rec.recordType}
 						</span>
@@ -62,61 +67,27 @@
 						</span>
 					</div>
 
-					<div class="font-bold text-sm text-blue-900 truncate" title={rec.name}>
+					<div class="font-bold text-sm text-slate-900 group-hover:text-indigo-600 transition-colors truncate" title={rec.name}>
 						{rec.name}
 					</div>
 
-					<div class="text-xs text-gray-600 font-mono mt-0.5">
-						{rec.accountNumber} • {rec.category}
+					<div class="text-xs text-slate-500 font-mono mt-1">
+						{rec.accountNumber} • <span class="font-sans text-slate-600">{rec.category}</span>
 					</div>
 
 					{#if rec.addresses && rec.addresses.length > 0}
-						<div class="text-xs text-gray-500 truncate mt-1">
-							📍 {rec.addresses[0].city}, {rec.addresses[0].state}
+						<div class="text-xs text-slate-500 truncate mt-1 flex items-center gap-1">
+							<span class="text-slate-400">📍</span>
+							<span>{rec.addresses[0].city}, {rec.addresses[0].state}</span>
 						</div>
 					{/if}
 
-					<div class="mt-2 pt-1 border-t border-gray-300 flex items-center justify-between text-[11px] text-gray-500">
+					<div class="mt-3 pt-2 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-400">
 						<span>Accessed:</span>
-						<span class="font-medium text-gray-700">{formatTimeAgo(rec.lastAccessedAt)}</span>
+						<span class="font-medium text-slate-600">{formatTimeAgo(rec.lastAccessedAt)}</span>
 					</div>
 				</button>
 			{/each}
 		</div>
 	{/if}
 </div>
-
-<style>
-	.fm-recent-shelf {
-		background: #ece9d8;
-	}
-
-	.fm-recent-card {
-		width: 100%;
-		background: #ffffff;
-		border-top: 1px solid #ffffff;
-		border-left: 1px solid #ffffff;
-		border-right: 1px solid #808080;
-		border-bottom: 1px solid #808080;
-		box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.15);
-		padding: 8px 10px;
-		cursor: pointer;
-		display: flex;
-		flex-direction: column;
-		box-sizing: border-box;
-	}
-
-	.fm-recent-card:hover {
-		background: #fbfbf8;
-		border-right-color: #404040;
-		border-bottom-color: #404040;
-	}
-
-	.fm-recent-card:active {
-		border-top: 1px solid #808080;
-		border-left: 1px solid #808080;
-		border-right: 1px solid #ffffff;
-		border-bottom: 1px solid #ffffff;
-		background: #ece8dc;
-	}
-</style>
